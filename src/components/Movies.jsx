@@ -1,24 +1,44 @@
 import React from "react";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
+import {
+  selectRecommend,
+  selectNewDisney,
+  selectOriginal,
+  selectTrending,
+} from "../features/movie/movieSlice";
+import { Link } from "react-router-dom";
 
 function Movies() {
+  const recommendedMovies = useSelector(selectRecommend);
+  const newDisneyMovies = useSelector(selectNewDisney);
+  const originalMovies = useSelector(selectOriginal);
+  const trendingMovies = useSelector(selectTrending);
+
+  const movies = [
+    { title: "Recommended for you", movieList: recommendedMovies },
+    { title: "New to Disney+", movieList: newDisneyMovies },
+    { title: "Originals", movieList: originalMovies },
+    { title: "Trending", movieList: trendingMovies },
+  ];
   return (
     <Container>
-      <h4>Recommended for you</h4>
-      <Content>
-        <Wrap>
-          <img src="https://tse4.mm.bing.net/th?id=OIP.SDZz5yaUYKGfMFrOfIBW3gHaDt&pid=Api&P=0&w=373&h=186" />
-        </Wrap>
-        <Wrap>
-          <img src="https://tse4.mm.bing.net/th?id=OIP.SDZz5yaUYKGfMFrOfIBW3gHaDt&pid=Api&P=0&w=373&h=186" />
-        </Wrap>
-        <Wrap>
-          <img src="https://tse4.mm.bing.net/th?id=OIP.SDZz5yaUYKGfMFrOfIBW3gHaDt&pid=Api&P=0&w=373&h=186" />
-        </Wrap>
-        <Wrap>
-          <img src="https://tse4.mm.bing.net/th?id=OIP.SDZz5yaUYKGfMFrOfIBW3gHaDt&pid=Api&P=0&w=373&h=186" />
-        </Wrap>
-      </Content>
+      {recommendedMovies && newDisneyMovies && originalMovies && trendingMovies &&
+        movies.map((movie, key) => (
+          <>
+            <h4 key={key}>{movie.title}</h4>
+            <Content>
+              {movie.movieList.map((movie, key) => (
+                <Wrap key={key}>
+                  {movie.id}
+                  <Link to={`/detail/${movie.id}`}>
+                    <img src={movie.cardImg} />
+                  </Link>
+                </Wrap>
+              ))}
+            </Content>
+          </>
+        ))}
     </Container>
   );
 }
