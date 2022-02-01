@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/Disney-/static/css/main.c1f22e9a.css",
+    "main.js": "/Disney-/static/js/main.955dd761.js",
+    "index.html": "/Disney-/index.html",
+    "main.c1f22e9a.css.map": "/Disney-/static/css/main.c1f22e9a.css.map",
+    "main.955dd761.js.map": "/Disney-/static/js/main.955dd761.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.c1f22e9a.css",
+    "static/js/main.955dd761.js"
+  ]
+}
