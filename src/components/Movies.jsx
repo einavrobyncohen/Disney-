@@ -25,7 +25,7 @@ function Movies() {
     <Container>
       {recommendedMovies && newDisneyMovies && originalMovies && trendingMovies &&
         movies.map((movie, key) => (
-          <>
+          <section id={movie.title}>
             <h4 key={key}>{movie.title}</h4>
             <Content>
               {movie.movieList.map((movie, key) => (
@@ -37,7 +37,7 @@ function Movies() {
                 </Wrap>
               ))}
             </Content>
-          </>
+          </ section>
         ))}
     </Container>
   );

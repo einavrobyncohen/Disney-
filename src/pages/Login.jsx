@@ -1,17 +1,62 @@
-import React from "react";
+import { auth, provider } from "../firebase";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import {
+  selectUserName,
+  selectUserPhoto,
+  setUserLoginDetails,
+} from "../features/user/userSlice";
 
 function Login() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const userName = useSelector(selectUserName);
+  const userPhoto = useSelector(selectUserPhoto);
+
+  useEffect(() => {
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        setUser(user);
+        navigate("/home");
+      }
+    });
+  }, [userName]);
+
+  const handleAuth = () => {
+    if(!userName) { 
+      auth
+      .signInWithPopup(provider)
+      .then((res) => {
+        setUser(res.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    }
+
+  };
+
+  const setUser = (user) => {
+    dispatch(
+      setUserLoginDetails({
+        name: user.displayName,
+        email: user.email,
+        photo: user.photoURL,
+      })
+    );
+  };
+
+
   return (
     <Container>
       <Content>
         <CTA>
-          <CTALogoOne src="/images/cta-logo-one.svg" />
-          <Signup>GET ALL THERE</Signup>
+          <CTALogoOne src="/images/logo.svg" />
+          <Signup onClick={handleAuth}>JOIN THE FAMILY</Signup>
           <Description>
-          Get Premier Access to Raya and the Last Dragon for an additional fee
-            with a Disney+ subscription. As of 03/26/21, the price of Disney+
-            and The Disney Bundle will increase by $1.
+          Sign up and start streaming all of your favorite movies
           </Description>
           <CTALogoTwo src="/images/cta-logo-two.png" />
         </CTA>
@@ -76,7 +121,7 @@ const CTA = styled.div`
 
 const CTALogoOne = styled.img`
   margin-bottom: 12px;
-  max-width: 600px;
+  max-width: 400px;
   min-height: 1px;
   display: block;
   width: 100%;

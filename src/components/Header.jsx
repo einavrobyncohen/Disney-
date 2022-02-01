@@ -2,7 +2,7 @@ import { auth, provider } from "../firebase";
 import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   selectUserName,
   selectUserPhoto,
@@ -20,7 +20,7 @@ function Header() {
     auth.onAuthStateChanged(async (user) => {
       if (user) {
         setUser(user);
-        navigate("/");
+        navigate("/home");
       }
     });
   }, [userName]);
@@ -40,7 +40,7 @@ function Header() {
       auth.signOut()
         .then(()=>{
           dispatch(setSignoutState())
-          navigate('/login')
+          navigate('/')
         })
         .catch((err) => alert(err.message))
     }
@@ -58,7 +58,7 @@ function Header() {
   };
   return (
     <Nav>
-      <Logo>
+      <Logo onClick={()=> {navigate('/home')}}>
         <img src="/images/logo.svg" alt="Disney+" />
       </Logo>
 
@@ -71,25 +71,21 @@ function Header() {
               <img src="/images/home-icon.svg" alt="HOME" />
               <span>HOME</span>
             </a>
-            <a>
-              <img src="/images/search-icon.svg" alt="SEARCH" />
-              <span>SEARCH</span>
-            </a>
-            <a>
+            <a href="#Recommended for you">
               <img src="/images/watchlist-icon.svg" alt="WATCHLIST" />
-              <span>WATCHLIST</span>
+              <span>RECOMMENDED</span>
             </a>
-            <a>
+            <a href="#Originals">
               <img src="/images/original-icon.svg" alt="ORIGINALS" />
               <span>ORIGINALS</span>
             </a>
-            <a>
+            <a href="#New to Disney+">
               <img src="/images/movie-icon.svg" alt="MOVIES" />
-              <span>MOVIES</span>
+              <span>NEW MOVIES</span>
             </a>
-            <a>
+            <a href="#Trending">
               <img src="/images/series-icon.svg" alt="SERIES" />
-              <span>SERIES</span>
+              <span>TRENDING</span>
             </a>
           </NavMenu>
           <SignOut>
@@ -127,6 +123,7 @@ const Logo = styled.a`
   margin-top: 4px;
   height: 8vh;
   font-size: 0;
+  cursor: pointer;
   img {
     width: 100%;
   }
@@ -145,6 +142,7 @@ const NavMenu = styled.div`
   margin-left: 25px;
   a {
     display: flex;
+    cursor: pointer;
     align-items: center;
     padding: 0 12px;
     img {
@@ -199,6 +197,7 @@ const Login = styled.a`
   border: 1px solid #f9f9f9;
   border-radius: 4px;
   transition: all 0.2s ease 0s;
+  cursor:pointer;
   &:hover {
     background-color: #f9f9f9;
     color: #000;
