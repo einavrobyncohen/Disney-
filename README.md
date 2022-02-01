@@ -1,7 +1,7 @@
 
 ## Disney+ Clone app🏰
 
-A fully responsive app built with ReactJs, styled components, firebase and Google Authentiction.
+A fully responsive app built with ReactJs, Redux, styled components, firebase and Google Authentiction.
 
 ![image](https://user-images.githubusercontent.com/91840306/152036641-2fa733c7-b222-43c9-af07-dd604c10d99e.png)
 
